@@ -1,0 +1,2 @@
+include 'hex-core'
+include 'hex-javafx'

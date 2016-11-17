@@ -1,0 +1,12 @@
+apply plugin: 'application'
+mainClassName = 'hex.ui.jfx.HexApplication'
+
+dependencies {
+	compile group: 'com.jfoenix', name: 'jfoenix', version: '1.0.0'
+	compile ('org.groovyfx:groovyfx:8.0.0') {
+		exclude module: 'groovy-all'
+	}
+	compile 'org.springframework:spring-context:4.3.4.RELEASE'
+
+	compile project(':hex-core')
+}

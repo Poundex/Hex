@@ -1,0 +1,26 @@
+
+allprojects {
+	group 'hex'
+	version '0.1.0-SNAPSHOT'
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'groovy'
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+
+	dependencies {
+		compile 'org.codehaus.groovy:groovy-all:2.4.7:indy'
+
+		testCompile ('org.spockframework:spock-core:1.1-groovy-2.4-rc-3') {
+			exclude module: 'groovy-all'
+		}
+	}
+}
