@@ -4,29 +4,22 @@ import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXTextField
 import groovy.transform.CompileStatic
 import groovyx.javafx.SceneGraphBuilder
-import hex.ui.jfx.layout.MainStage
-import hex.ui.jfx.layout.Page
-import hex.ui.jfx.layout.PageManager
+import hex.core.context.CalculatorContext
+import hex.core.context.DefaultCalculatorContext
+import hex.core.parser.FunctionResolver
+import hex.core.parser.StringParser
 import javafx.stage.Stage
 import org.springframework.beans.factory.config.BeanDefinition
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Lazy
-import org.springframework.context.annotation.Scope
+import org.springframework.context.annotation.*
 
 /**
  * Created by poundex on 16/11/16.
  */
 @CompileStatic
+@ComponentScan(basePackages = 'hex.ui.jfx', lazyInit = true)
 @Configuration @Lazy
 class HexContextConfig
 {
-	@Bean
-	MainStage mainStage()
-	{
-		return new MainStage()
-	}
-
 	@Bean
 	SceneGraphBuilder sceneGraphBuilder(Stage primaryStage)
 	{
@@ -36,15 +29,21 @@ class HexContextConfig
 		return  sceneGraphBuilder
 	}
 
-	@Bean
-	PageManager pageManager()
+	@Bean @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+	CalculatorContext calculatorContext(StringParser stringParser)
 	{
-		return new PageManager()
+		return new DefaultCalculatorContext(stringParser)
 	}
 
-	@Bean @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-	Page page()
+	@Bean
+	StringParser stringParser(FunctionResolver functionResolver)
 	{
-		return new Page()
+		return new StringParser(functionResolver)
+	}
+
+	@Bean
+	FunctionResolver functionResolver()
+	{
+		return new FunctionResolver()
 	}
 }

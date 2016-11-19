@@ -8,12 +8,18 @@ import hex.core.parser.StringParser
  */
 class DefaultCalculatorContext implements CalculatorContext
 {
+	private final StringParser stringParser
 	private final Deque<Object> stack = new LinkedList<>()
+
+	DefaultCalculatorContext(StringParser stringParser)
+	{
+		this.stringParser = stringParser
+	}
 
 	@Override
 	void pushParsed(String stringToParse)
 	{
-		new StringParser(this, stringToParse).parse()
+		stringParser.parse(this, stringToParse)
 	}
 
 	@Override

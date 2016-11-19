@@ -9,12 +9,14 @@ import javafx.scene.control.TextInputControl
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
 
 /**
  * Created by poundex on 16/11/16.
  */
+@Component
 class MainStage
 {
 	@Autowired
@@ -26,10 +28,12 @@ class MainStage
 	@Autowired
 	PageManager pageManager
 
+	private TextInputControl input
+
 	@PostConstruct
 	void init()
 	{
-		JFXDecorator decorator = new JFXDecorator(stage, buildMainLayout())
+		JFXDecorator decorator = new JFXDecorator(stage, buildMainLayout(), false, false, true)
 
 		Scene scene = new Scene(decorator, 350, 550)
 		scene.stylesheets.add(getClass().getResource("/resources/css/jfoenix-fonts.css").toExternalForm())
@@ -37,6 +41,7 @@ class MainStage
 		scene.stylesheets.add(getClass().getResource("/hex.css").toExternalForm())
 		stage.scene = scene
 
+		input.requestFocus()
 		stage.show()
 	}
 
@@ -54,7 +59,6 @@ class MainStage
 			}
 
 			bottom {
-				TextInputControl input
 				borderPane {
 					input = jfxTextField(onAction: { ActionEvent e -> submitText(e.source) })
 

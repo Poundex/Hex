@@ -1,8 +1,8 @@
 package hex.core.parser
 
 import hex.core.context.CalculatorContext
-import hex.core.engine.AdditionOperator
-import hex.core.engine.DuplicateStackCommand
+import hex.core.util.AdditionOperator
+import hex.core.util.DuplicateStackCommand
 import spock.lang.Specification
 
 /**
@@ -16,7 +16,7 @@ class StringParserSpec extends Specification
 		CalculatorContext calculatorContext = Mock(CalculatorContext)
 
 		when:
-		new StringParser(calculatorContext, input).parse()
+		new StringParser().parse(calculatorContext, input)
 
 		then:
 		1 * calculatorContext.pushRaw(result)
@@ -34,7 +34,7 @@ class StringParserSpec extends Specification
 		CalculatorContext calculatorContext = Mock(CalculatorContext)
 
 		when:
-		new StringParser(calculatorContext, "2 3 4").parse()
+		new StringParser().parse(calculatorContext, "2 3 4")
 
 		then:
 		1 * calculatorContext.pushRaw(2)
@@ -49,8 +49,8 @@ class StringParserSpec extends Specification
 		CalculatorContext calculatorContext = Mock(CalculatorContext)
 
 		when:
-		new StringParser(calculatorContext, "2 3 +").parse()
-		new StringParser(calculatorContext, "").parse()
+		new StringParser().parse(calculatorContext, "2 3 +")
+		new StringParser().parse(calculatorContext, "")
 
 		then:
 		1 * calculatorContext.pushRaw(2)

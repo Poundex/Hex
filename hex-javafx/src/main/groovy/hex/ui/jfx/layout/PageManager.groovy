@@ -5,10 +5,12 @@ import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
+import org.springframework.stereotype.Component
 
 /**
  * Created by poundex on 16/11/16.
  */
+@Component
 class PageManager implements ApplicationContextAware
 {
 	ApplicationContext applicationContext
