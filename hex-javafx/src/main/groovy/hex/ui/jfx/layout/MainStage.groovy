@@ -6,6 +6,7 @@ import javafx.event.ActionEvent
 import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.control.TextInputControl
+import javafx.scene.image.Image
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import org.springframework.beans.factory.annotation.Autowired
@@ -33,6 +34,9 @@ class MainStage
 	@PostConstruct
 	void init()
 	{
+		stage.title = 'Hex'
+		stage.icons << new Image(getClass().getResource('/cheese_small.png').newInputStream(), 64, 64, true, true)
+
 		JFXDecorator decorator = new JFXDecorator(stage, buildMainLayout(), false, false, true)
 
 		Scene scene = new Scene(decorator, 350, 550)
