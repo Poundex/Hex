@@ -12,7 +12,7 @@ class AdditionOperator extends Operator
 	@Override
 	void doWithStack(Deque<Object> stack)
 	{
-		stack.push(stack.pop() + stack.pop())
+		stack.push(popAndUnwrap(stack) + popAndUnwrap(stack))
 	}
 }
 
@@ -21,8 +21,8 @@ class SubtractionOperator extends Operator
 	@Override
 	void doWithStack(Deque<Object> stack)
 	{
-		Object o = stack.pop()
-		stack.push(stack.pop() - o)
+		Object o = popAndUnwrap(stack)
+		stack.push(popAndUnwrap(stack) - o)
 	}
 }
 
@@ -31,7 +31,7 @@ class MultiplicationOperator extends Operator
 	@Override
 	void doWithStack(Deque<Object> stack)
 	{
-		stack.push(stack.pop() * stack.pop())
+		stack.push(popAndUnwrap(stack) * popAndUnwrap(stack))
 	}
 }
 
@@ -40,8 +40,8 @@ class DivisionOperator extends Operator
 	@Override
 	void doWithStack(Deque<Object> stack)
 	{
-		Object o = stack.pop()
-		stack.push(stack.pop() / o)
+		Object o = popAndUnwrap(stack)
+		stack.push(popAndUnwrap(stack) / o)
 	}
 }
 

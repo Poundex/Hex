@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import groovyx.javafx.SceneGraphBuilder
 import hex.core.context.CalculatorContext
 import hex.core.context.DefaultCalculatorContext
+import hex.core.context.SymbolManager
 import hex.core.parser.FunctionResolver
 import hex.core.parser.StringParser
 import javafx.stage.Stage
@@ -36,14 +37,20 @@ class HexContextConfig
 	}
 
 	@Bean
-	StringParser stringParser(FunctionResolver functionResolver)
+	StringParser stringParser(FunctionResolver functionResolver, SymbolManager symbolManager)
 	{
-		return new StringParser(functionResolver)
+		return new StringParser(functionResolver, symbolManager)
 	}
 
 	@Bean
 	FunctionResolver functionResolver()
 	{
 		return new FunctionResolver()
+	}
+
+	@Bean
+	SymbolManager symbolManager()
+	{
+		return new SymbolManager()
 	}
 }

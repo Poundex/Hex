@@ -10,4 +10,13 @@ abstract class Operator implements Actuator
 	{
 		return 2
 	}
+
+	static Object popAndUnwrap(Deque<Object> stack)
+	{
+		Object o = stack.pop()
+		if (o instanceof StackElement)
+			return o.value
+		else
+			return o
+	}
 }

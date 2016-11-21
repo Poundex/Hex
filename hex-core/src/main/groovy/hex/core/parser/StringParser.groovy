@@ -1,13 +1,10 @@
 package hex.core.parser
 
 import hex.core.context.CalculatorContext
-import hex.core.engine.*
-import hex.core.util.AdditionOperator
-import hex.core.util.DivisionOperator
-import hex.core.util.DropStackCommand
-import hex.core.util.DuplicateStackCommand
-import hex.core.util.MultiplicationOperator
-import hex.core.util.SubtractionOperator
+import hex.core.context.SymbolManager
+import hex.core.engine.Actuator
+import hex.core.engine.Symbol
+import hex.core.util.*
 
 /**
  * Created by poundex on 15/11/16.
@@ -15,10 +12,12 @@ import hex.core.util.SubtractionOperator
 class StringParser
 {
 	private final FunctionResolver functionResolver
+	private final SymbolManager symbolManager
 
-	StringParser(FunctionResolver functionResolver)
+	StringParser(FunctionResolver functionResolver, SymbolManager symbolManager)
 	{
 		this.functionResolver = functionResolver
+		this.symbolManager = symbolManager
 	}
 
 	void parse(CalculatorContext calculatorContext, String inputString)
@@ -53,6 +52,9 @@ class StringParser
 			else if (string.isNumber())
 				calculatorContext.pushRaw string.toBigDecimal()
 
+			else if (string ==~ /\$[a-zA-Z_]+/)
+				calculatorContext.pushRaw new Symbol(string.substring(1), symbolManager)
+
 			else if (string ==~ /\w+/)
 				calculatorContext.pushRaw functionResolver.resolveFunction(string)
 		}
@@ -67,6 +69,7 @@ class StringParser
 				'-': SubtractionOperator,
 				'*': MultiplicationOperator,
 				'/': DivisionOperator,
+				'=': AssignmentOperator,
 
 				'' : DuplicateStackCommand,
 				'<': DropStackCommand,
