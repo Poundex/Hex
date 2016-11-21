@@ -1,13 +1,24 @@
 package hex.core.util
-
-import hex.core.engine.StackElement
-
 /**
  * Created by poundex on 18/11/16.
  */
 @HexSafe
-class BasicFunctions
+class BasicStackFunctions implements StackManipulator
 {
+	@Operator('')
+	@RequiresStackSize(1)
+	static void dup(Deque<Object> stack)
+	{
+		stack.push(stack.peek())
+	}
+
+	@Operator('<')
+	@RequiresStackSize(1)
+	static void drop(Deque<Object> stack)
+	{
+		stack.pop()
+	}
+
 	@RequiresStackSize(1)
 	static void smax(Deque<Object> stack)
 	{
@@ -32,12 +43,5 @@ class BasicFunctions
 		Object o = unwrapAll(stack).sum()
 		stack.clear()
 		stack.push(o)
-	}
-
-	private static unwrapAll(Deque<Object> stack)
-	{
-		return stack.collect {
-			it instanceof StackElement ? it.value : it
-		}
 	}
 }
