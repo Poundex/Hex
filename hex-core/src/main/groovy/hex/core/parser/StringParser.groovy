@@ -63,7 +63,7 @@ class StringParser
 		}
 
 		private final static List<String> OPERATORS = [
-				'+', '-', '*', '/', '=', '' , '<'
+				'+', '-', '*', '/', '=', '' , '<', '~'
 		]
 	}
 }

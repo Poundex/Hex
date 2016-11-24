@@ -44,4 +44,14 @@ class BasicStackFunctions implements StackManipulator
 		stack.clear()
 		stack.push(o)
 	}
+
+	@Operator('~')
+	@RequiresStackSize(2)
+	static void swap(Deque<Object> stack)
+	{
+		Object o1 = stack.pop()
+		Object o2 = stack.pop()
+		stack.push(o1)
+		stack.push(o2)
+	}
 }
